@@ -1,9 +1,8 @@
-package eyeblink.com.eyeblink
+package com.eyeblink
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import eyeblink.com.eyeblink.ui.camera.GraphicOverlay
 import com.google.android.gms.vision.face.Face
 
 internal class FaceGraphic(overlay: GraphicOverlay) : GraphicOverlay.Graphic(overlay) {

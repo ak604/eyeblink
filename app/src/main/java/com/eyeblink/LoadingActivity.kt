@@ -1,4 +1,4 @@
-package eyeblink.com.eyeblink
+package com.eyeblink
 
 import android.Manifest
 import android.app.AlertDialog
@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import eyeblink.com.eyeblink.R
 
 
 class LoadingActivity : AppCompatActivity() {
@@ -33,7 +34,7 @@ class LoadingActivity : AppCompatActivity() {
 
     fun checkAndStartNextActivity(){
         if(gmsAvailabe && cameraPermission) {
-            val intent = Intent(this, FaceTrackerActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -42,7 +43,7 @@ class LoadingActivity : AppCompatActivity() {
         val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
                 getApplicationContext())
         if (code != ConnectionResult.SUCCESS) {
-            val dlg = GoogleApiAvailability.getInstance().getErrorDialog(this, code, LoadingActivity.RC_HANDLE_GMS)
+            val dlg = GoogleApiAvailability.getInstance().getErrorDialog(this, code, RC_HANDLE_GMS)
             dlg.show()
         }else{
             gmsAvailabe=true;
@@ -60,20 +61,20 @@ class LoadingActivity : AppCompatActivity() {
 
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(this, permissions, LoadingActivity.RC_HANDLE_CAMERA_PERM)
+            ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM)
             return
         }
 
         val thisActivity = this
 
         ActivityCompat.requestPermissions(thisActivity, permissions,
-                LoadingActivity.RC_HANDLE_CAMERA_PERM)
+                RC_HANDLE_CAMERA_PERM)
 
 
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode != LoadingActivity.RC_HANDLE_CAMERA_PERM) {
+        if (requestCode != RC_HANDLE_CAMERA_PERM) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             return
         }

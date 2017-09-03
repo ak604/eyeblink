@@ -8,16 +8,8 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-  <eyeblink.com.eyeblink.ui.camera.CameraSourcePreview
-      android:id="@+id/preview"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <eyeblink.com.eyeblink.ui.camera.GraphicOverlay
-        android:id="@+id/faceOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-  </eyeblink.com.eyeblink.ui.camera.CameraSourcePreview>
+  <fragment class="com.eyeblink.UserFace"
+      android:id="@+id/userface" android:layout_weight="1"
+      android:layout_width="match_parent" android:layout_height="match_parent" />
 
 </LinearLayout>

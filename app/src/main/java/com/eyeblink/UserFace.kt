@@ -1,37 +1,51 @@
-package eyeblink.com.eyeblink
+package com.eyeblink
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.MultiProcessor
 import com.google.android.gms.vision.Tracker
 import com.google.android.gms.vision.face.Face
 import com.google.android.gms.vision.face.FaceDetector
-import eyeblink.com.eyeblink.ui.camera.CameraSourcePreview
-import eyeblink.com.eyeblink.ui.camera.GraphicOverlay
+import eyeblink.com.eyeblink.R
+import kotlinx.android.synthetic.main.fragment_user_face.*
 import java.io.IOException
 
-class FaceTrackerActivity : AppCompatActivity() {
-    lateinit var mCameraSource: CameraSource
+class UserFace : Fragment() {
 
+    lateinit private var model: MainViewModel
+
+    lateinit var mCameraSource: CameraSource
     lateinit var mPreview: CameraSourcePreview
     lateinit var mGraphicOverlay: GraphicOverlay
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main)
+    }
 
-        mPreview = findViewById(R.id.preview) as CameraSourcePreview
-        mGraphicOverlay = findViewById(R.id.faceOverlay) as GraphicOverlay
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        model = ViewModelProviders.of(activity).get(MainViewModel::class.java)
+        mPreview = preview
+        mGraphicOverlay = faceOverlay
         createCameraSource()
         startCameraSource()
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_user_face, container, false)
+    }
+
     private fun createCameraSource() {
 
-        val context = getApplicationContext()
+        val context = activity.getApplicationContext()
         val detector = FaceDetector.Builder(context).setClassificationType(FaceDetector.ALL_CLASSIFICATIONS).build()
 
         detector.setProcessor(
@@ -44,12 +58,12 @@ class FaceTrackerActivity : AppCompatActivity() {
         mCameraSource= CameraSource.Builder(context, detector).setRequestedPreviewSize(640, 480).setFacing(CameraSource.CAMERA_FACING_FRONT).setRequestedFps(30.0f).build()
     }
 
-    protected override fun onPause() {
+    override fun onPause() {
         super.onPause()
-        mPreview!!.stop()
+        mPreview.stop()
     }
 
-    protected override fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         mCameraSource.release()
     }
@@ -90,7 +104,9 @@ class FaceTrackerActivity : AppCompatActivity() {
         override fun onUpdate(detectionResults: Detector.Detections<Face>, face: Face) {
             mOverlay.add(mFaceGraphic)
             mFaceGraphic.updateFace(face)
-            BlinkDetector.act( face.getIsLeftEyeOpenProbability() , face.getIsRightEyeOpenProbability())
+            model.setBlinkData(Pair(face.isLeftEyeOpenProbability, face.isRightEyeOpenProbability))
+            if(model.getBlink().value!! )
+                (activity as MainActivity).onUserBlink()
         }
 
         override fun onMissing(detectionResults: Detector.Detections<Face>) {
@@ -104,4 +120,5 @@ class FaceTrackerActivity : AppCompatActivity() {
     companion object {
         private val TAG = "FaceTracker"
     }
+
 }

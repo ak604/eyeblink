@@ -28,13 +28,13 @@
             android:value="face" />
 
         <activity
-            android:name=".FaceTrackerActivity"
+            android:name="com.eyeblink.MainActivity"
             android:label="Face Tracker"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
-        <activity android:name=".LoadingActivity">
+        <activity android:name="com.eyeblink.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

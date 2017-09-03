@@ -1,4 +1,4 @@
-package eyeblink.com.eyeblink.ui.camera
+package com.eyeblink
 
 import android.content.Context
 import android.content.res.Configuration
@@ -8,7 +8,6 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
 
-import com.google.android.gms.common.images.Size
 import com.google.android.gms.vision.CameraSource
 
 import java.io.IOException
