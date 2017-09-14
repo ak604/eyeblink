@@ -1,5 +1,6 @@
-package com.eyeblink
+package com.eyeblink.dagger
 
+import com.eyeblink.MainActivity
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 

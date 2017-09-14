@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eyeblink.com.eyeblink.com.eyeblink.UserFace">
+    tools:context="com.eyeblink.MainActivity">
 
-    <com.eyeblink.CameraSourcePreview
+    <com.eyeblink.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.eyeblink.GraphicOverlay
+        <com.eyeblink.camera.GraphicOverlay
             android:id="@+id/faceOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.eyeblink.CameraSourcePreview>
+    </com.eyeblink.camera.CameraSourcePreview>
 
 </FrameLayout>

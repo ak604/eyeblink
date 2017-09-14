@@ -15,8 +15,4 @@ class MainActivity : LifecycleActivity() {
         setContentView(R.layout.main)
         val model = ViewModelProviders.of(this).get(MainViewModel::class.java)
     }
-
-    public fun onUserBlink(){
-
-    }
 }

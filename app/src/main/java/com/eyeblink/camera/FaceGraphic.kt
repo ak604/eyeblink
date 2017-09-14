@@ -1,4 +1,4 @@
-package com.eyeblink
+package com.eyeblink.camera
 
 import android.graphics.Canvas
 import android.graphics.Color

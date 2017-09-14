@@ -1,4 +1,4 @@
-package com.eyeblink
+package com.eyeblink.camera
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.eyeblink.BlinkData
+import com.eyeblink.MainActivity
+import com.eyeblink.MainViewModel
+import com.eyeblink.Utility
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.MultiProcessor
@@ -17,7 +21,7 @@ import eyeblink.com.eyeblink.R
 import kotlinx.android.synthetic.main.fragment_user_face.*
 import java.io.IOException
 
-class UserFace : Fragment() {
+class UserCameraFace : Fragment() {
 
     lateinit private var model: MainViewModel
 
@@ -104,7 +108,7 @@ class UserFace : Fragment() {
         override fun onUpdate(detectionResults: Detector.Detections<Face>, face: Face) {
             mOverlay.add(mFaceGraphic)
             mFaceGraphic.updateFace(face)
-            model.setBlinkData(Pair(face.isLeftEyeOpenProbability, face.isRightEyeOpenProbability))
+            model.setBlinkData( BlinkData(Utility.getCurrentTime() , face.isLeftEyeOpenProbability, face.isRightEyeOpenProbability))
             if(model.getBlink().value!! )
                 (activity as MainActivity).onUserBlink()
         }
