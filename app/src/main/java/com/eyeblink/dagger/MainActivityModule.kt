@@ -10,8 +10,6 @@ import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
 import dagger.Provides
 
-
-
 @Module(subcomponents = arrayOf(MainActivitySubcomponent::class))
         abstract class MainActivityModule {
     @Binds
@@ -19,4 +17,6 @@ import dagger.Provides
     @ActivityKey(MainActivity::class)
     abstract fun bindYourActivityInjectorFactory(builder : MainActivitySubcomponent.Builder) : AndroidInjector.Factory<out Activity>
 
+    @Binds
+    abstract fun bindApplicationContext( context : Context) :  Context
 }

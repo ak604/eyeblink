@@ -9,10 +9,15 @@ import eyeblink.com.eyeblink.R
 
 class MainActivity : LifecycleActivity() {
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this);
         setContentView(R.layout.main)
         val model = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        this.applicationContext
     }
 }
